@@ -1,6 +1,6 @@
 // 1
 function getDeltaFunction(deltaObject) {
-  return (subDelta = {}) => {
+  return function(subDelta = {}) {
     const delta = {...deltaObject, ...subDelta}
     return  delta.b * delta.b - 4 * delta.a * delta.c;
   }
@@ -35,15 +35,7 @@ console.log(positiveSum([-1, 5, -10]));
 
 // 3
 function countSheep(shed) {
-  let presentSheep = 0;
-
-  shed.filter(function(sheep) {
-    if (sheep === true) {
-      presentSheep = presentSheep + 1;
-    }
-  })
-
-  return presentSheep;
+  return shed.filter(Boolean).length;
 }
 
 const shed = [true, false, true, false, true];
@@ -51,7 +43,9 @@ console.log(countSheep(shed)); //3
 
 // 4
 function findNeedle(haystack) {
-  return 'found the needle at position ' + haystack.findIndex((word) => word === 'needle');
+  const needle = (el) => el === "needle";
+  const index = haystack.findIndex(needle);
+  return 'found the needle at position ' + index;
 }
 
 const haystack = ["hay", "junk", "hay", "hay", "moreJunk", "needle", "randomJunk"];
@@ -69,7 +63,7 @@ console.log(doubleNumbers([1, 2, 3]));
 // 6
 function invertNumbers(numbers) {
   return numbers.map(function(number) {
-    return -number;
+    return number * -1;
   })
 }
 
@@ -90,8 +84,8 @@ console.log(getAverage([3, 4, 5]));
 
 // 8
 function isStringInArray(array) {
-  return !!array.find(function(edible) {
-    return typeof edible === 'string';
+  return !!array.find(function(string) {
+    return typeof string === 'string';
   })
 }
 
@@ -99,9 +93,9 @@ console.log(isStringInArray([4, 'Orange'], 'Apple')); // true
 console.log(isStringInArray([3, 4], 'Potato')); // false
 
 // 9
-function forEach(array, functionName) {
+function forEach(array, callback) {
   for (let i = 0; i < array.length; ++i) {
-    functionName(array[i], i.toString());
+    callback(array[i], i.toString());
   }
 }
 
@@ -118,18 +112,18 @@ forEach(vegetables, printVegetable);
 
 const fruits = ['Apple', 'Orange', 'Watermelon'];
 forEach(fruits,
-    function(fruit, index) {
-      console.log(fruit, index);
-    }
+  function(fruit, index) {
+    console.log(fruit, index);
+  }
 );
 // Apple 0
 // Orange 1
 // Watermelon 2
 
 // 10
-function executeAfterFiveSeconds(functionName) {
+function executeAfterFiveSeconds(callback) {
   setTimeout(() => {
-    functionName();
+    callback();
   }, 5000);
 }
 
@@ -140,9 +134,9 @@ function sayHello() {
 executeAfterFiveSeconds(sayHello);
 
 // 11
-
 function getRandomIntegerGenerator(firstNumber, secondNumber) {
-  return Math.floor(Math.random() * (secondNumber - firstNumber) ) + firstNumber;
+  const subtraction = (secondNumber - firstNumber);
+  return Math.floor(Math.random() * subtraction) + firstNumber;
 }
 
 const getRandomDigit = getRandomIntegerGenerator(0, 9);
@@ -151,12 +145,12 @@ console.log(getRandomDigit); // random number between 0 and 9
 console.log(getRandomIntegerGenerator(-10, 10)); // random number between -10 and 10
 
 // 12
-function findObjectProperty(object, compareProperty) {
+function findObjectProperty(object, getProperty) {
   let searchedValue;
 
   Object.keys(object).forEach(function(key) {
-    if (compareProperty(object[key])) {
-      searchedValue = (key);
+    if (getProperty(object[key])) {
+      searchedValue = key;
     }
   })
 
@@ -186,9 +180,9 @@ const adamPropertyName = findObjectProperty(john, function(propertyValue) {
 console.log(adamPropertyName); // bestFriend
 
 // 13
-
 function getRandomCharacterGenerator(string) {
-  return string.charAt(Math.floor(Math.random() * string.length));
+  const randomCharacter = Math.random() * string.length
+  return string.charAt(Math.floor(randomCharacter));
 }
 
 const getRandomNumber = getRandomCharacterGenerator('0123456789');
@@ -200,7 +194,9 @@ console.log(getRandomABC); // returns a random string that is a, A, b, B, c, or 
 
 // 14
 function getPrefixedStringGenerator(prefix) {
-  return (string) => prefix + string;
+  return function(string) {
+    return prefix + string
+  };
 }
 
 const prefixStringWithMister = getPrefixedStringGenerator('Mr.');
