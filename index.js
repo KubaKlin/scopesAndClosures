@@ -1,7 +1,7 @@
 // 1
 function getDeltaFunction(deltaObject) {
   return function(subDelta = {}) {
-    const delta = {...deltaObject, ...subDelta}
+    const delta = {...deltaObject, ...subDelta};
     return  delta.b * delta.b - 4 * delta.a * delta.c;
   }
 }
@@ -35,7 +35,9 @@ console.log(positiveSum([-1, 5, -10]));
 
 // 3
 function countSheep(shed) {
-  return shed.filter(Boolean).length;
+  return shed.filter(function(shedElement) {
+    return Boolean(shedElement);
+  })
 }
 
 const shed = [true, false, true, false, true];
@@ -43,12 +45,13 @@ console.log(countSheep(shed)); //3
 
 // 4
 function findNeedle(haystack) {
-  const needle = (el) => el === "needle";
-  const index = haystack.findIndex(needle);
+  const index = haystack.findIndex(function(word) {
+    return word === 'needle';
+  });
   return 'found the needle at position ' + index;
 }
 
-const haystack = ["hay", "junk", "hay", "hay", "moreJunk", "needle", "randomJunk"];
+const haystack = ['hay', 'junk', 'hay', 'hay', 'moreJunk', 'needle', 'randomJunk'];
 console.log(findNeedle(haystack));
 
 // 5
@@ -122,9 +125,9 @@ forEach(fruits,
 
 // 10
 function executeAfterFiveSeconds(callback) {
-  setTimeout(() => {
+  setTimeout(function() {
     callback();
-  }, 5000);
+  }, 1000);
 }
 
 function sayHello() {
@@ -135,8 +138,9 @@ executeAfterFiveSeconds(sayHello);
 
 // 11
 function getRandomIntegerGenerator(firstNumber, secondNumber) {
-  const subtraction = (secondNumber - firstNumber);
-  return Math.floor(Math.random() * subtraction) + firstNumber;
+  const numbersRange = secondNumber - firstNumber;
+  const randomNumber = Math.random() * numbersRange;
+  return Math.floor(randomNumber) + firstNumber;
 }
 
 const getRandomDigit = getRandomIntegerGenerator(0, 9);
@@ -145,11 +149,11 @@ console.log(getRandomDigit); // random number between 0 and 9
 console.log(getRandomIntegerGenerator(-10, 10)); // random number between -10 and 10
 
 // 12
-function findObjectProperty(object, getProperty) {
+function findObjectProperty(object, getObjectProperty) {
   let searchedValue;
 
   Object.keys(object).forEach(function(key) {
-    if (getProperty(object[key])) {
+    if (getObjectProperty(object[key])) {
       searchedValue = key;
     }
   })
@@ -181,8 +185,8 @@ console.log(adamPropertyName); // bestFriend
 
 // 13
 function getRandomCharacterGenerator(string) {
-  const randomCharacter = Math.random() * string.length
-  return string.charAt(Math.floor(randomCharacter));
+  const randomIndex = Math.random() * string.length;
+  return string.charAt(Math.floor(randomIndex));
 }
 
 const getRandomNumber = getRandomCharacterGenerator('0123456789');
@@ -195,7 +199,7 @@ console.log(getRandomABC); // returns a random string that is a, A, b, B, c, or 
 // 14
 function getPrefixedStringGenerator(prefix) {
   return function(string) {
-    return prefix + string
+    return prefix + string;
   };
 }
 
