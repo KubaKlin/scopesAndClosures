@@ -3,7 +3,7 @@ function getDeltaFunction(deltaObject) {
   return function(subDelta = {}) {
     const delta = {...deltaObject, ...subDelta};
     return  delta.b * delta.b - 4 * delta.a * delta.c;
-  }
+  };
 }
 
 // delta = b*b - 4*a*c
@@ -25,7 +25,7 @@ function positiveSum(numbers) {
     if (number > 0) {
       numbersSum = numbersSum + number;
     }
-  })
+  });
 
   return numbersSum;
 }
@@ -37,7 +37,7 @@ console.log(positiveSum([-1, 5, -10]));
 function countSheep(shed) {
   return shed.filter(function(shedElement) {
     return Boolean(shedElement);
-  })
+  });
 }
 
 const shed = [true, false, true, false, true];
@@ -58,7 +58,7 @@ console.log(findNeedle(haystack));
 function doubleNumbers(numbers){
   return numbers.map(function(number) {
     return number * 2;
-  })
+  });
 }
 
 console.log(doubleNumbers([1, 2, 3]));
@@ -67,7 +67,7 @@ console.log(doubleNumbers([1, 2, 3]));
 function invertNumbers(numbers) {
   return numbers.map(function(number) {
     return number * -1;
-  })
+  });
 }
 
 console.log(invertNumbers([1, -2, 3, -4, 5]));
@@ -78,7 +78,7 @@ function getAverage(marks){
 
   marks.forEach(function(mark) {
     averageMarks += mark;
-  })
+  });
 
   return Math.floor(averageMarks / marks.length);
 }
@@ -89,7 +89,7 @@ console.log(getAverage([3, 4, 5]));
 function isStringInArray(array) {
   return !!array.find(function(string) {
     return typeof string === 'string';
-  })
+  });
 }
 
 console.log(isStringInArray([4, 'Orange'], 'Apple')); // true
@@ -156,7 +156,7 @@ function findObjectProperty(object, getObjectProperty) {
     if (getObjectProperty(object[key])) {
       searchedValue = key;
     }
-  })
+  });
 
   return searchedValue;
 }
@@ -164,11 +164,11 @@ function findObjectProperty(object, getObjectProperty) {
 const redApple = {
   color: 'red',
   weightInGrams: 150
-}
+};
 
 const propertyName = findObjectProperty(redApple, function(propertyValue) {
   return propertyValue === 'red';
-})
+});
 console.log(propertyName); // color
 
 const john = {
@@ -176,11 +176,11 @@ const john = {
   bestFriend: {
     name: 'Adam'
   }
-}
+};
 
 const adamPropertyName = findObjectProperty(john, function(propertyValue) {
   return propertyValue && propertyValue.name === 'Adam';
-})
+});
 console.log(adamPropertyName); // bestFriend
 
 // 13
