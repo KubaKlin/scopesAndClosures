@@ -149,11 +149,11 @@ console.log(getRandomDigit); // random number between 0 and 9
 console.log(getRandomIntegerGenerator(-10, 10)); // random number between -10 and 10
 
 // 12
-function findObjectProperty(object, getObjectProperty) {
+function findObjectProperty(object, callback) {
   let searchedValue;
 
   Object.keys(object).forEach(function(key) {
-    if (getObjectProperty(object[key])) {
+    if (callback(object[key])) {
       searchedValue = key;
     }
   });
